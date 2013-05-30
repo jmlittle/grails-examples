@@ -16,7 +16,7 @@ class FormController {
 	
 	def list(Integer max, Integer offset, String sort, String order) {
 		params.max = Math.min(max ?: 20, 100)
-		params.offset = offset
+		params.offset = offset ?: 0  // require offset for pagination
 		params.sort = sort ?: 'courseName'
 		params.order = order ?: 'asc'
 		def total = ExampleForm.count()
@@ -45,9 +45,10 @@ class FormController {
 						else
 						forms = ExampleForm.list().sort { p1, p2 -> p1."$sort"() <=> p2."$sort"()}
 					}
-			forms.paginate(params.max, params.offset)
+			forms = forms.paginate(params.max, params.offset)
+			
 			}
-        [formInstanceList: forms, formInstanceTotal: total]
+        [formInstanceList: forms, formInstanceTotal: ExampleForm.count()]
 	}
 	
 }

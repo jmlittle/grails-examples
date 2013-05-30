@@ -13,6 +13,9 @@ class DataBootstrapService {
 				def greenForm = new ExampleForm(firstName: 'Isaac', lastName: 'Green', courseName: "EE 102A", dateSubmitted: new Date().parse("dd-MM-yyyy","04-20-2013"), dateApproved: new Date().parse("dd-MM-yyyy","04-21-2013")).save(failOnError: true)
 				def blueForm = new ExampleForm(firstName: 'Ralph', lastName: 'Blue', courseName: "EE 300").save(failOnError: true)
 				def orangeForm = new ExampleForm(firstName: 'George', lastName: 'Orange', courseName: "EE 272").save(failOnError: true)
+				for (i in 1..25) {
+					def newForm = new ExampleForm(firstName: 'John', lastName: "Doe${i}", courseName: "CS ${i}").save(failOnError: true)
+				}
 			}
 	    }
 }
